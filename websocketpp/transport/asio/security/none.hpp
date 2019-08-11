@@ -168,7 +168,8 @@ protected:
             return socket::make_error_code(socket::error::invalid_state);
         }
 
-        m_socket.reset(new lib::asio::ip::tcp::socket(*service));
+        m_socket = lib::make_shared<lib::asio::ip::tcp::socket>(
+            lib::ref(*service));
 
         if (m_socket_init_handler) {
             m_socket_init_handler(m_hdl, *m_socket);
